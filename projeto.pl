@@ -25,10 +25,30 @@ menu:-
     write("[4] Cadastrar funcionario"),nl,
     write("[5] Listar funcionario"),nl,
     write("[6] Remover funcionario"),nl,
-    read(Opc), if_else((Opc=1),adicionarProduto,
-                       (if_else((Opc=2),(write("Digite o nome: "),read(Nome),write("Digite a descricao: "), read(Desc),write("Digite a quantidade: "),read(Quant),removerProduto(produto(Nome,Desc,Quant))),
-                                ( write(""))))).
+    read(Opc),
+              if_else((Opc=1),adicionarProduto,
+              (if_else((Opc=2),(removerProduto),
+              (if_else((Opc=3),(listaProdutos),
+              (if_else((Opc=4),(cadastrarFuncionario),
+              (if_else((Opc=5),(listarFuncionario),
+              (if_else((Opc=6),(removerFuncionario),
+              (write("Opcao invalida"),menu)))))))))))).
 
+:- dynamic funcionario/3.
+funcionario(Nome,Usuario,Senha).
+cadastrarFuncionario(funcionario(A,B,C)):- assertz(funcionario(A,B,C)).
+cadastrarFuncionario:-
+    write("Digite o nome do funcionario: "), read(Nome),
+    write("Digite o usuario para "),write(Usuario),write(": "), read(Usuario),
+    write("Digite a respetiva senha: "), read(Senha),
+    assertz(funcionario(Nome,Usuario,Senha)).
+
+listarFuncionario:- listing(funcionario).
+
+removerFuncionario(funcionario(N,U,S)) :- retract(funcionario(N,U,S)).
+removerFuncionario:-
+    write("Digite o nome do funcionario: "), read(N),
+    X =funcionario(N,_,_), retract(funcionario(X,_,_)).
 
 login:-
     write("Digite o user: "), read(User),
