@@ -12,7 +12,8 @@ adicionarProduto:-
     write("E sua quantidade: "), read(Quant),
 
     if_else((Quant=<0),((write("Quantidade invalida"),nl,write("Quantidade certa: "),read(Q),assertz(produto(Nome,Desc,Q)))),
-             (write("Falso"),assertz(produto(Nome,Desc,Quant)))).
+             (write("Falso"),assertz(produto(Nome,Desc,Quant)))),
+    menu.
 
 
 removerProduto:- write("Digite o nome do produto: "), read(Nome),retract(produto(Nome,_,_)).
